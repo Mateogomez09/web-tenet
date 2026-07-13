@@ -147,17 +147,18 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
   // Reset scroll position to top when activeTab changes (guarantees returning to start in Home)
   useEffect(() => {
     if (scroll && scroll.el) {
-      // Hack for mobile momentum scrolling: disable overflow temporarily to kill momentum
-      scroll.el.style.overflow = 'hidden';
-      scroll.el.scrollTop = 0;
-      
-      setTimeout(() => {
-        scroll.el.style.overflow = 'auto';
+      let attempts = 0;
+      // Force scroll to 0 repeatedly for ~300ms to beat mobile CPU layout lag and momentum scroll
+      const interval = setInterval(() => {
         scroll.el.scrollTop = 0;
         scroll.el.scrollTo(0, 0);
         scroll.offset = 0;
         scroll.el.dispatchEvent(new Event('scroll'));
-      }, 100); // 100ms gives slower mobile CPUs enough time to reflow DOM
+        attempts++;
+        if (attempts > 15) clearInterval(interval);
+      }, 20);
+      
+      return () => clearInterval(interval);
     }
   }, [activeTab, scroll]);
 
@@ -312,7 +313,7 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
           const progress = offset / 0.25;
           const smooth = progress * progress * (3 - 2 * progress); // Ease in-out
           const startZ = 6.0;
-          const startX = isMobile ? 60.0 : 54.0;
+          const startX = 54.0;
           targetX = THREE.MathUtils.lerp(startX, 38, smooth);
           targetY = THREE.MathUtils.lerp(2.8, 1.8, smooth);
           targetZ = THREE.MathUtils.lerp(startZ, 3.8, smooth);
