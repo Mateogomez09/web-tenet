@@ -187,8 +187,8 @@ export default function TenetExperience() {
           <ArchitecturalScene activeTab={activeTab} activeProject={activeProject} setActiveProject={setActiveProject} />
           
           {/* Home Scroll Texts */}
-          {activeTab === 'home' && (
-            <Scroll html style={{ width: '100%', height: '100%' }}>
+          <Scroll html style={{ width: '100%', height: '100%', pointerEvents: activeTab === 'home' ? 'auto' : 'none' }}>
+            <div className={`w-full h-full transition-opacity duration-500 ${activeTab === 'home' ? 'opacity-100' : 'opacity-0'}`}>
               {/* The first 2 pages are room camera transitions, so we leave it empty here */}
               <div className="h-[200vh] w-full"></div>
 
@@ -216,8 +216,8 @@ export default function TenetExperience() {
 
               {/* Corridor glide spacer (Z: 5.0 to 7.0) */}
               <div className="h-[200vh] w-full"></div>
-            </Scroll>
-          )}
+            </div>
+          </Scroll>
 
         </ScrollControls>
       </Canvas>
