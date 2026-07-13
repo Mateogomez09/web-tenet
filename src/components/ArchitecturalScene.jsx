@@ -146,14 +146,10 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
 
   // Reset scroll position to top when activeTab changes (guarantees returning to start in Home)
   useEffect(() => {
-    if (scroll) {
-      if (scroll.el) {
-        scroll.el.scrollTop = 0;
-      }
-      scroll.offset = 0;
-      if (scroll.scroll) {
-        scroll.scroll.current = 0;
-      }
+    if (scroll && scroll.el) {
+      scroll.el.scrollTop = 0;
+      scroll.el.scrollTo(0, 0);
+      scroll.el.dispatchEvent(new Event('scroll'));
     }
   }, [activeTab, scroll]);
 
