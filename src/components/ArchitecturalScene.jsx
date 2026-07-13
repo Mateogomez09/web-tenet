@@ -311,7 +311,7 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
           // Empezamos muchísimo más lejos (X: 56, Z: 6) viendo toda la sala
           const progress = offset / 0.25;
           const smooth = progress * progress * (3 - 2 * progress); // Ease in-out
-          const startZ = isMobile ? 6.5 : 6.0;
+          const startZ = 6.0;
           const startX = isMobile ? 60.0 : 54.0;
           targetX = THREE.MathUtils.lerp(startX, 38, smooth);
           targetY = THREE.MathUtils.lerp(2.8, 1.8, smooth);
