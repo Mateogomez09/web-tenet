@@ -182,7 +182,7 @@ export default function TenetExperience() {
         )}
       </div>
 
-      <Canvas shadows camera={{ position: [0, 1.5, 3], fov: 45 }}>
+      <Canvas shadows camera={{ position: [0, 1.5, 3], fov: 45 }} dpr={window.innerWidth < 768 ? [1, 1] : [1, 2]}>
         <ScrollControls pages={activeTab === 'contacto' ? 1 : activeTab === 'proyectos' ? 5 : 8} damping={0.2}>
           <ArchitecturalScene activeTab={activeTab} activeProject={activeProject} setActiveProject={setActiveProject} />
           
