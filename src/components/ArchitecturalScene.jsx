@@ -147,12 +147,17 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
   // Reset scroll position to top when activeTab changes (guarantees returning to start in Home)
   useEffect(() => {
     if (scroll && scroll.el) {
+      // Hack for mobile momentum scrolling: disable overflow temporarily to kill momentum
+      scroll.el.style.overflow = 'hidden';
+      scroll.el.scrollTop = 0;
+      
       setTimeout(() => {
+        scroll.el.style.overflow = 'auto';
         scroll.el.scrollTop = 0;
         scroll.el.scrollTo(0, 0);
         scroll.offset = 0;
         scroll.el.dispatchEvent(new Event('scroll'));
-      }, 50);
+      }, 100); // 100ms gives slower mobile CPUs enough time to reflow DOM
     }
   }, [activeTab, scroll]);
 
@@ -306,7 +311,7 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
           // Empezamos muchísimo más lejos (X: 56, Z: 6) viendo toda la sala
           const progress = offset / 0.25;
           const smooth = progress * progress * (3 - 2 * progress); // Ease in-out
-          const startZ = isMobile ? 7.5 : 6.0;
+          const startZ = isMobile ? 6.5 : 6.0;
           const startX = isMobile ? 60.0 : 54.0;
           targetX = THREE.MathUtils.lerp(startX, 38, smooth);
           targetY = THREE.MathUtils.lerp(2.8, 1.8, smooth);
