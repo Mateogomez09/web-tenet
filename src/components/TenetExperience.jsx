@@ -16,7 +16,7 @@ export default function TenetExperience() {
       <div className="absolute inset-0 z-40 pointer-events-none p-6 sm:p-8 flex flex-col justify-between">
 
         <header className="flex justify-end w-full">
-          <nav className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-medium uppercase text-white pointer-events-auto mix-blend-difference">
+          <nav className="flex flex-wrap justify-center sm:flex-nowrap gap-3 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs tracking-[0.2em] font-medium uppercase text-white pointer-events-auto mix-blend-difference">
             <span 
               onClick={() => {
                 setActiveTab('home');
@@ -187,35 +187,37 @@ export default function TenetExperience() {
           <ArchitecturalScene activeTab={activeTab} activeProject={activeProject} setActiveProject={setActiveProject} />
           
           {/* Home Scroll Texts */}
-          <Scroll html style={{ width: '100%', height: '100%', display: activeTab === 'home' ? 'block' : 'none' }}>
-            {/* The first 2 pages are room camera transitions, so we leave it empty here */}
-            <div className="h-[200vh] w-full"></div>
+          {activeTab === 'home' && (
+            <Scroll html style={{ width: '100%', height: '100%' }}>
+              {/* The first 2 pages are room camera transitions, so we leave it empty here */}
+              <div className="h-[200vh] w-full"></div>
 
-            {/* The Entrance: Displays exactly while the camera is paused at the painting/shelf (Z: 2.0 to 3.5) */}
-            <div className="h-[150vh] w-full flex items-center justify-start px-6 sm:px-12 md:px-32 text-white pointer-events-none">
-              <div className="max-w-2xl mix-blend-difference">
-                <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#ff7043] mb-3 sm:mb-4 block">EL ACCESO</span>
-                <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold uppercase tracking-tight mb-4 sm:mb-8">Calidez<br />& Luz</h2>
-                <p className="text-base sm:text-lg md:text-xl font-light text-white/80 leading-relaxed">
-                  Cada paso en el interior está diseñado para acercarte al núcleo de la experiencia, envolviéndote en un confort absoluto.
-                </p>
+              {/* The Entrance: Displays exactly while the camera is paused at the painting/shelf (Z: 2.0 to 3.5) */}
+              <div className="h-[150vh] w-full flex items-center justify-start px-6 sm:px-12 md:px-32 text-white pointer-events-none">
+                <div className="max-w-2xl mix-blend-difference">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#ff7043] mb-3 sm:mb-4 block">EL ACCESO</span>
+                  <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold uppercase tracking-tight mb-4 sm:mb-8">Calidez<br />& Luz</h2>
+                  <p className="text-base sm:text-lg md:text-xl font-light text-white/80 leading-relaxed">
+                    Cada paso en el interior está diseñado para acercarte al núcleo de la experiencia, envolviéndote en un confort absoluto.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            {/* The Corridor: Displays as the camera rotates and transitions into the corridor (Z: 3.5 to 5.0) */}
-            <div className="h-[150vh] w-full flex items-center justify-end px-6 sm:px-12 md:px-32 text-white pointer-events-none text-right">
-              <div className="max-w-2xl mix-blend-difference">
-                <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#ff7043] mb-3 sm:mb-4 block">EL PASILLO</span>
-                <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold uppercase tracking-tight mb-4 sm:mb-8">Guiados<br />Por El Diseño</h2>
-                <p className="text-base sm:text-lg md:text-xl font-light text-white/80 leading-relaxed">
-                  Ricos paneles de madera y superficies pulidas trazan un recorrido táctil, conectando los espacios de forma fluida y sin fisuras.
-                </p>
+              {/* The Corridor: Displays as the camera rotates and transitions into the corridor (Z: 3.5 to 5.0) */}
+              <div className="h-[150vh] w-full flex items-center justify-end px-6 sm:px-12 md:px-32 text-white pointer-events-none text-right">
+                <div className="max-w-2xl mix-blend-difference">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#ff7043] mb-3 sm:mb-4 block">EL PASILLO</span>
+                  <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold uppercase tracking-tight mb-4 sm:mb-8">Guiados<br />Por El Diseño</h2>
+                  <p className="text-base sm:text-lg md:text-xl font-light text-white/80 leading-relaxed">
+                    Ricos paneles de madera y superficies pulidas trazan un recorrido táctil, conectando los espacios de forma fluida y sin fisuras.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            {/* Corridor glide spacer (Z: 5.0 to 7.0) */}
-            <div className="h-[200vh] w-full"></div>
-          </Scroll>
+              {/* Corridor glide spacer (Z: 5.0 to 7.0) */}
+              <div className="h-[200vh] w-full"></div>
+            </Scroll>
+          )}
 
         </ScrollControls>
       </Canvas>

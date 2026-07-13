@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { RoundedBox, Text, Image } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -13,12 +13,9 @@ export default function ProjectCanvas({
   const groupRef = useRef();
   const plaqueRef = useRef();
   const [hovered, setHovered] = useState(false);
-  const { size } = useThree();
-  const isMobile = size.width < 768;
-  const baseScale = isMobile ? 0.6 : 1.0;
+  const targetScale = hovered && !isActive ? 1.05 : 1;
 
   useFrame((state, delta) => {
-    const targetScale = hovered || isActive ? baseScale * 1.05 : baseScale;
     if (groupRef.current) {
       groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), delta * 5);
     }

@@ -94,6 +94,7 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
   const scroll = useScroll();
   const sceneGroup = useRef();
   const { camera, scene, size } = useThree();
+  const isMobile = size.width < 768;
 
   // Performance Fix: Pre-allocated vector for garbage collection
   const scratchTargetLookAt = useRef(new THREE.Vector3(0, 1.5, 5)).current;
@@ -306,9 +307,11 @@ export default function ArchitecturalScene({ activeTab, activeProject, setActive
           // Empezamos muchísimo más lejos (X: 56, Z: 6) viendo toda la sala
           const progress = offset / 0.25;
           const smooth = progress * progress * (3 - 2 * progress); // Ease in-out
-          targetX = THREE.MathUtils.lerp(54, 38, smooth);
+          const startZ = isMobile ? 12.0 : 6.0;
+          const startX = isMobile ? 60.0 : 54.0;
+          targetX = THREE.MathUtils.lerp(startX, 38, smooth);
           targetY = THREE.MathUtils.lerp(2.8, 1.8, smooth);
-          targetZ = THREE.MathUtils.lerp(6.0, 3.8, smooth);
+          targetZ = THREE.MathUtils.lerp(startZ, 3.8, smooth);
           
           scratchTargetLookAt.set(
             THREE.MathUtils.lerp(20, 38, smooth), 
